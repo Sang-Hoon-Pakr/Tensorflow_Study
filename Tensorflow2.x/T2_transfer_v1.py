@@ -1,3 +1,5 @@
+#This code include Transfer Learning and Dropout
+
 import os
 
 from tensorflow.keras import layers
@@ -13,6 +15,7 @@ pre_trained_model = InceptionV3(input_shape = (150, 150, 3),
 
 pre_trained_model.load_weights(local_weights_file)
 
+#여기부터 freeze 한거임 .. 
 for layer in pre_trained_model.layers:
   layer.trainable = False
 
