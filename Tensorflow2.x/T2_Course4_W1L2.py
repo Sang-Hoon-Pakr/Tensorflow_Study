@@ -84,7 +84,7 @@ def autocorrelation(time, amplitude, seed=None):
         ar[step] += φ2 * ar[step - 33]
     return ar[50:] * amplitude
 
-def autocorrelation(time, amplitude, seed=None):
+def autocorrelation2(time, amplitude, seed=None):
     rnd = np.random.RandomState(seed)
     φ = 0.8
     ar = rnd.randn(len(time) + 1)
@@ -92,8 +92,65 @@ def autocorrelation(time, amplitude, seed=None):
         ar[step] += φ * ar[step - 1]
     return ar[1:] * amplitude
 
-series = autocorrelation(time, 10, seed=42)
+series = autocorrelation2(time, 10, seed=42)
 plt.figure(6)
 plot_series(time[:200], series[:200])
 
 plt.show()
+
+series = autocorrelation(time, 10, seed=42) + trend(time, 2)
+plot_series(time[:200], series[:200])
+plt.figure(7)
+plt.show()
+
+series = autocorrelation(time, 10, seed=42) + seasonality(time, period=50, amplitude=150) + trend(time, 2)
+plot_series(time[:200], series[:200])
+plt.figure(8)
+plt.show()
+
+series = autocorrelation(time, 10, seed=42) + seasonality(time, period=50, amplitude=150) + trend(time, 2)
+series2 = autocorrelation(time, 5, seed=42) + seasonality(time, period=50, amplitude=2) + trend(time, -1) + 550
+series[200:] = series2[200:]
+#series += noise(time, 30)
+plot_series(time[:300], series[:300])
+plt.figure(9)
+plt.show()
+
+def impulses(time, num_impulses, amplitude=1, seed=None):
+    rnd = np.random.RandomState(seed)
+    impulse_indices = rnd.randint(len(time), size=10)
+    series = np.zeros(len(time))
+    for index in impulse_indices:
+        series[index] += rnd.rand() * amplitude
+    return series    
+
+series = impulses(time, 10, seed=42)
+plot_series(time, series)
+plt.figure(10)
+plt.show()
+
+def autocorrelation(source, φs):
+    ar = source.copy()
+    max_lag = len(φs)
+    for step, value in enumerate(source):
+        for lag, φ in φs.items():
+            if step - lag > 0:
+              ar[step] += φ * ar[step - lag]
+    return ar
+
+signal = impulses(time, 10, seed=42)
+series = autocorrelation(signal, {1: 0.99})
+plot_series(time, series)
+plt.plot(time, signal, "k-")
+plt.figure(11)
+plt.show()
+
+signal = impulses(time, 10, seed=42)
+series = autocorrelation(signal, {1: 0.70, 50: 0.2})
+plot_series(time, series)
+plt.plot(time, signal, "k-")
+plt.figure(12)
+plt.show()
+
+series_diff1 = series[1:] - series[:-1]
+plot_series(time[1:], series_diff1)
