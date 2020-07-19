@@ -22,7 +22,6 @@ plt.figure(figsize=(10, 6))
 plot_series(time, series)
 plt.figure(1)
 plt.show(block=False)
-#plt.show()
 
 def seasonal_pattern(season_time):
     """Just an arbitrary pattern, you can change it if you wish"""
@@ -41,14 +40,12 @@ series = seasonality(time, period=365, amplitude=amplitude)
 
 plt.figure(2, figsize=(10, 6))
 plot_series(time, series)
-#plt.show()
 
 slope = 0.05
 series = baseline + trend(time, slope) + seasonality(time, period=365, amplitude=amplitude)
 
 plt.figure(3, figsize=(10, 6))
 plot_series(time, series)
-#plt.show()
 
 def white_noise(time, noise_level=1, seed=None):
     rnd = np.random.RandomState(seed)
@@ -59,13 +56,11 @@ noise = white_noise(time, noise_level, seed=42)
 
 plt.figure(4, figsize=(10, 6))
 plot_series(time, noise)
-#plt.show()
 
 series += noise
 
 plt.figure(5, figsize=(10, 6))
 plot_series(time, series)
-#plt.show()
 
 split_time = 1000
 time_train = time[:split_time]
