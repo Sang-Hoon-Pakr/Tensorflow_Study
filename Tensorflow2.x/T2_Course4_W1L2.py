@@ -22,7 +22,6 @@ plt.figure(figsize=(10, 6))
 plot_series(time, series)
 plt.figure(1)
 plt.show(block=False)
-#plt.show()
 
 def seasonal_pattern(season_time):
     """Just an arbitrary pattern, you can change it if you wish"""
