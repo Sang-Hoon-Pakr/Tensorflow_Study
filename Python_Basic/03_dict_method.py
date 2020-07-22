@@ -10,13 +10,16 @@
 
 # function[action]()
 
-from itertools import permutations
-def solution(numbers):
-    answer = ''
-    numbers = list(map(str, numbers))
-    numbers.sort(key = lambda x: x*3, reverse=True)
-    print(numbers)
+##문제풀이, 최대수 만들기
+# def solution(numbers):
+#     answer = ''
+#     numbers = list(map(str, numbers))
+#     numbers.sort(key = lambda x: x*3, reverse=True)
+#     print(numbers)
     
-    return answer
+#     return answer
 
-solution([1,2,3,5,4])
+# solution([1,2,3,5,4])
+
+aa= lambda x,y:x+y, [1,2,3,4]
+print(aa)
