@@ -68,3 +68,18 @@ method_strip = "aaaaa상훈 aa, 파이썬, hello World! aaaaaa"
 strip_res = method_strip.strip("aa")
 print(strip_res) #출력결과: 상훈 aa, 파이썬, hello World! -> 앞과 뒤에 있는것 모두지운다.. 그런데 앞에는 5개인데 모두지우는것으로봐서 글자단위 검사 하는듯..
 
+###########################################################################
+
+## 7. index(), find() 메서드 정리
+## <A>.index(sub, start, end)는 문자열 <A>에 대해서 sub의 인덱스 위치를 반환한다. 다만 없으면 에러발생
+## <A>.find(sub, start, end)는 문자열 <A>에 대해서 sub의 인덱스 위치를 반환한다. 없으면 -1 리턴함
+
+slayers ="Buffy and Faith Faith"
+print(slayers.index("Faith")) # 결과 10 나옴 인덱스 로 0부터 시작 
+print(slayers.find("Faith")) # 결과 동일함 
+#print(slayers.index("Faith2")) #결과 에러 발생 ValueError: substring not found
+print(slayers.find("Faith2")) #결과 -1 발생
+
+print(slayers.count("Faith", 0)) # 결과 2 나옴 대소문자 구분함 
+
+####################################################################################
