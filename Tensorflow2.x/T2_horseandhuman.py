@@ -1,5 +1,5 @@
 import os
-
+print(os.path)
 # Directory with our training horse pictures
 train_horse_dir = os.path.join('..\\tmp\\horse-or-human\\horses')
 

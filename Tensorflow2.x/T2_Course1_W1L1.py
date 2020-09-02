@@ -10,4 +10,4 @@ ys = np.array([-3.0, -1.0, 1.0, 3.0, 5.0, 7.0], dtype=float)
 
 model.fit(xs, ys, epochs=500, verbose=0)
 
-print(model.predict([10.0]))
+print(model.predict([10.0])) # 출력결과 18.976xxxx 
