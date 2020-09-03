@@ -97,7 +97,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.MaxPooling2D(2, 2),
     tf.keras.layers.Flatten(),
     tf.keras.layers.Dense(512, activation='relu'),
-    tf.keras.layers.Dense(26, activation='softmax')
+    tf.keras.layers.Dense(10, activation='softmax')
 ])
 
 # Compile Model. 
