@@ -35,12 +35,13 @@ baseline = 10
 amplitude = 20
 slope = 0.09
 noise_level = 5
+print(time[:30])
 
 # Create the series
 series = baseline + trend(time, slope) + seasonality(time, period=365, amplitude=amplitude)
 # Update with noise
 series += noise(time, noise_level, seed=42)
-
+print(series[:30])
 split_time = 1000
 time_train = time[:split_time]
 x_train = series[:split_time]
@@ -87,7 +88,7 @@ plt.figure(2, figsize=(10, 6))
 plot_series(time_valid, x_valid)
 plot_series(time_valid, results)
 
-tf.keras.metrics.mean_absolute_error(x_valid, results).numpy()
+print(tf.keras.metrics.mean_absolute_error(x_valid, results).numpy())
 plt.show()
 ##############################################
 

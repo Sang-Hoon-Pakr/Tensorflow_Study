@@ -22,9 +22,13 @@ with open('../tmp/Sunspots.csv') as csvfile:
 
 series = np.array(sunspots)
 time = np.array(time_step)
-plt.figure(figsize=(10, 6))
-plot_series(time, series)
-plt.show()
+min = np.min(series)
+max = np.max(series)
+series -= min
+series /= max
+# plt.figure(figsize=(10, 6))
+# plot_series(time, series)
+# plt.show()
 
 split_time = 3000
 time_train = time[:split_time]
@@ -47,13 +51,14 @@ def windowed_dataset(series, window_size, batch_size, shuffle_buffer):
 dataset = windowed_dataset(x_train, window_size, batch_size, shuffle_buffer_size)
 
 model = tf.keras.models.Sequential([
-    tf.keras.layers.Dense(20, input_shape=[window_size], activation="relu"), 
-    tf.keras.layers.Dense(10, activation="relu"),
-    tf.keras.layers.Dense(1)
+  tf.keras.layers.Dense(64, input_shape=[window_size], activation='relu'),
+  tf.keras.layers.Dense(128, activation='relu'),
+  tf.keras.layers.Dense(32, activation='relu'),
+  tf.keras.layers.Dense(1)
 ])
 
 model.compile(loss="mse", optimizer=tf.keras.optimizers.SGD(lr=1e-7, momentum=0.9))
-model.fit(dataset,epochs=100,verbose=0)
+model.fit(dataset,epochs=200,verbose=2)
 
 forecast=[]
 for time in range(len(series) - window_size):

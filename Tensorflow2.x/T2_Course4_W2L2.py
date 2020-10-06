@@ -38,6 +38,7 @@ noise_level = 5
 
 # Create the series
 series = baseline + trend(time, slope) + seasonality(time, period=365, amplitude=amplitude)
+print("series: ",len(series))
 # Update with noise
 series += noise(time, noise_level, seed=42)
 
@@ -58,11 +59,12 @@ def windowed_dataset(series, window_size, batch_size, shuffle_buffer):
   dataset = dataset.flat_map(lambda window: window.batch(window_size + 1))
   dataset = dataset.shuffle(shuffle_buffer).map(lambda window: (window[:-1], window[-1]))
   dataset = dataset.batch(batch_size).prefetch(1)
+
   return dataset
 
 #######################################
 dataset = windowed_dataset(x_train, window_size, batch_size, shuffle_buffer_size)
-print("dataset : ",dataset)
+#print("dataset : ",dataset)
 l0 = tf.keras.layers.Dense(1, input_shape=[window_size])
 model = tf.keras.models.Sequential([l0])
 

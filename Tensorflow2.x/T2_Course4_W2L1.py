@@ -35,6 +35,7 @@ dataset = tf.data.Dataset.range(10)
 dataset = dataset.window(5, shift=1, drop_remainder=True)
 dataset = dataset.flat_map(lambda window: window.batch(5))
 dataset = dataset.map(lambda window: (window[:-1], window[-1:]))
+print(dataset)
 for x,y in dataset:
   print(x.numpy(), y.numpy())
 print("==Stage 5 end==")
@@ -49,6 +50,20 @@ for x,y in dataset:
   print(x.numpy(), y.numpy())
 print("==Stage 6 end==")
 
+window_size=5
+batch_size=2
+shuffle_buffer_size=10
+dataset = tf.data.Dataset.range(10)
+dataset = dataset.window(window_size, shift=1, drop_remainder=True)
+dataset = dataset.flat_map(lambda window: window.batch(window_size + 1))
+# dataset = dataset.map(lambda window: (window[:-1], window[-1:]))
+dataset = dataset.shuffle(buffer_size=shuffle_buffer_size).map(lambda window: (window[:-1], window[-1:]))
+dataset = dataset.batch(batch_size).prefetch(1)
+for x,y in dataset:
+  print("x = ", x.numpy())
+  print("y = ", y.numpy())
+print("==Stage 7 end==")
+
 window_size=20
 batch_size=32
 shuffle_buffer_size=100
@@ -61,7 +76,7 @@ dataset = dataset.batch(batch_size).prefetch(1)
 for x,y in dataset:
   print("x = ", x.numpy())
   print("y = ", y.numpy())
-print("==Stage 7 end==")
+print("==Stage 8 end==")
 
 
 

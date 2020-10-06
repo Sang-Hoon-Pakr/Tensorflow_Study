@@ -137,14 +137,13 @@ signal = impulses(time, 10, seed=42)
 series = autocorrelation(signal, {1: 0.99})
 plot_series(time, series)
 plt.plot(time, signal, "k-")
-plt.figure(11)
+
 plt.show()
 
 signal = impulses(time, 10, seed=42)
 series = autocorrelation(signal, {1: 0.70, 50: 0.2})
 plot_series(time, series)
 plt.plot(time, signal, "k-")
-plt.figure(12)
 plt.show()
 
 series_diff1 = series[1:] - series[:-1]

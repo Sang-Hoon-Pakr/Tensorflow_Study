@@ -29,6 +29,11 @@ train_dataset = train_data.shuffle(BUFFER_SIZE)
 train_dataset = train_dataset.padded_batch(BATCH_SIZE, tf.compat.v1.data.get_output_shapes(train_dataset))
 test_dataset = test_data.padded_batch(BATCH_SIZE, tf.compat.v1.data.get_output_shapes(test_data))
 
+#정확도 수치는 학습이 끝날떄 까지 크게 올라가지 않음
+# 서브 워드를 다루고 있기 때문에 이런 결과가 나오고 왜냐면
+#서브워드는 단어의 의미를 끌어내기 굉장히 힘들기 때문이다.
+#예를들어 tensorflow 라는 단어는 Ten sor fl ow 이렇게 나뉘는데 ten 이라는 서브워드는 의미를 숫자 10으로 해석할수도 있다. 
+
 embedding_dim = 64
 model = tf.keras.Sequential([
     tf.keras.layers.Embedding(tokenizer.vocab_size, embedding_dim),
